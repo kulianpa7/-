@@ -1,4 +1,4 @@
-# Final concept paper
+# Final concept paper.
 # README: 系統概述與功能描述
 
 ## 1. 權限管理系統
