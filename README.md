@@ -56,4 +56,7 @@
 - 根據需求制訂管理介面。
 - 支持派車記錄的追蹤與查詢。
 
-
+#### 參考物件
+- [laravel-admin](https://laravel-admin.org/)
+- [Dejango Admin](https://djangogirlstaipei.gitbooks.io/django-girls-taipei-tutorial/content/django/admin.html)
+- [adminJS](https://adminjs.co/)
