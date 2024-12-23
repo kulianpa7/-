@@ -5,6 +5,7 @@
 #include "public_user.h"
 #include "public_vehicle.h"
 #include "public_driver.h"
+#include "public_order_list.h"
 
 #include <QPushButton>
 #include <QResizeEvent>
@@ -32,6 +33,8 @@ public_menu::public_menu(QWidget *parent)
     connect(ui->user_button, &QPushButton::clicked, this, [this]() {on_buttons_click("user");});
     connect(ui->driver_car_button, &QPushButton::clicked, this, [this]() {on_buttons_click("velicle");});
     connect(ui->driver_car_button, &QPushButton::clicked, this, [this]() {on_buttons_click("driver");});
+    connect(ui->order_list_button, &QPushButton::clicked, this, [this]() {on_buttons_click("order_list");});
+
     // connect(ui->user_button, &QPushButton::clicked, this, &public_menu::on_user_click);
 }
 
@@ -47,6 +50,7 @@ ButtonType public_menu::stringToButtonType(const QString& buttonType) {
     if (buttonType == "user") return User;
     if (buttonType == "driver") return Driver;
     if (buttonType == "velicle") return Vehicle;
+    if (buttonType == "order_list") return Order_list;
     return Unknown;
 }
 void public_menu::on_buttons_click(const QString& buttonType) {
@@ -71,6 +75,9 @@ void public_menu::on_buttons_click(const QString& buttonType) {
                 break;
             case(Vehicle):
                 Pages[type] = new public_velicle();  // 創建用戶頁面
+                break;
+            case(Order_list):
+                Pages[type] = new public_order_list();  // 創建用戶頁面
                 break;
             default:
                 return;
