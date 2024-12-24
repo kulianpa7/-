@@ -4,7 +4,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <QDebug>
+
 
 #include <Qstring>
 #include <QCryptographicHash>
@@ -12,9 +12,7 @@
 #include <QMessageBox>
 #include <QComboBox>
 #include <BasePage.h>
-
-std::unordered_map<int,bool> is_first_user;
-
+#include <QDebug>
 public_user::public_user(BasePage *parent)
     : BasePage(parent)
     , ui(new Ui::public_user)
@@ -63,11 +61,6 @@ void public_user::closeEvent(QCloseEvent *event)
 void public_user::loadDataFromDatabase()
 {
     disconnect(ui->tableWidget_2, &QTableWidget::cellChanged, this, &public_user::onCellChanged);
-    // 清空 hashmap
-    for(auto &i:is_first_user){
-        qDebug() <<"hELLO : "<< i << ' ';
-    }
-    is_first_user.clear();
 
     // 执行数据库查询，选取所有角色数据
     QSqlQuery query(
@@ -191,7 +184,6 @@ void public_user::loadDataFromDatabase()
 
 void public_user::onCellChanged(int row) {
     int id = ui->tableWidget_2->item(row, 0)->data(Qt::UserRole).toInt();
-    qDebug() << "DEG = " << is_first_user[id];
     // 檢查行號是否有效
     if (row < 0 || row >= ui->tableWidget_2->rowCount()) {
         qDebug() << "Invalid row number:" << row;
@@ -223,7 +215,6 @@ void public_user::onCellChanged(int row) {
     // 從第一列取得資料庫中記錄的 ID
     if (ui->tableWidget_2->item(row, 0)) {
         int id = ui->tableWidget_2->item(row, 0)->data(Qt::UserRole).toInt();
-        qDebug() << "Database ID:" << id << "state :" << is_first_user[id];
         // 保存數據到資料庫
         saveDataToDatabase(row, id);
         loadDataFromDatabase();  // 重新加載數據，更新顯示
@@ -288,9 +279,21 @@ void public_user::deleteRow(int id) {
 // 儲存特定行資料到資料庫
 void public_user::saveDataToDatabase(int row, int id)
 {
+
     if (row < 0 || row >= ui->tableWidget_2->rowCount()) {
         qDebug() << "ERROR: Invalid row:" << row;
         return;
+    }
+
+    int currentUserId = 0; // 初始化当前用户 ID
+    // 检查第 0 列的 QTableWidgetItem 是否存在
+    if (ui->tableWidget_2->item(row, 0) != nullptr) {
+        QVariant idData = ui->tableWidget_2->item(row, 0)->data(Qt::UserRole);
+        if (idData.isValid()) {
+            currentUserId = idData.toInt();
+        } else {
+            qDebug() << "Error: ID data not found in Qt::UserRole.";
+        }
     }
     // 取得該行的用戶名，並檢查是否為空
     QString users = "";
@@ -305,12 +308,12 @@ void public_user::saveDataToDatabase(int row, int id)
     }
     // Query the database to check for duplicate usernames
     QSqlQuery roleQuery;
-    roleQuery.prepare("SELECT COUNT(*) FROM users WHERE username = :username AND is_del = 0");
+    roleQuery.prepare("SELECT COUNT(*) FROM users WHERE username = :username AND is_del = 0 AND id != :id");
     roleQuery.bindValue(":username", username);
+    roleQuery.bindValue(":id",currentUserId);
 
     if (roleQuery.exec() && roleQuery.next()) {
         int count = roleQuery.value(0).toInt();
-
         if (count > 0) {
             QMessageBox::warning(this, "警告", "帳號不能重複！");
             loadDataFromDatabase();
@@ -446,22 +449,37 @@ void public_user::addrow() {
         QString name = nameEdit->text();
         QString username = usernameEdit->text();
         QString password = passwordEdit->text();
+
         // 对密码进行哈希处理
         QByteArray PWD = password.toUtf8();
         QByteArray hash = QCryptographicHash::hash(PWD, QCryptographicHash::Sha256);
         QString hashedPassword = hash.toHex();
 
         int selectedRoleId = roleComboBox->currentData().toInt();
-        if (!name.isEmpty()     ||
-            !username.isEmpty() ||
-            !password.isEmpty())
-        {
+
+        if (!name.isEmpty() && !username.isEmpty() && !password.isEmpty()) {
+            // 首先檢查資料庫中是否已存在相同的用戶名
+            QSqlQuery checkQuery;
+            checkQuery.prepare("SELECT COUNT(*) FROM users WHERE username = :username AND is_del = 0");
+            checkQuery.bindValue(":username", username);
+
+            if (checkQuery.exec() && checkQuery.next()) {
+                int count = checkQuery.value(0).toInt();
+                if (count > 0) {
+                    QMessageBox::warning(this, "警告", "該帳號已存在，請使用其他帳號！");
+                    return; // 中止插入操作
+                }
+            } else {
+                qDebug() << "檢查用戶名失敗：" << checkQuery.lastError().text();
+                QMessageBox::critical(this, "錯誤", "無法檢查帳號是否已存在！");
+                return;
+            }
+
             // 開始插入資料到資料庫
             QSqlQuery query;
             // 使用 SQL 插入語句
             query.prepare("INSERT INTO users (users, role_id, username, password) "
-                          "VALUES (:users,:role_id,:username,:password)");
-
+                          "VALUES (:users, :role_id, :username, :password)");
             // 設定綁定參數
             query.bindValue(":users", name);
             query.bindValue(":username", username);
@@ -479,7 +497,7 @@ void public_user::addrow() {
                 QMessageBox::warning(this, "錯誤", "無法新增人員至資料庫！");
             }
         } else {
-            // 如果名稱為空，顯示錯誤提示
+            // 如果名稱、帳號或密碼為空，顯示錯誤提示
             QMessageBox::warning(this, "警告", "名稱或帳號密碼不能為空！");
         }
     }

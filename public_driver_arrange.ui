@@ -1,0 +1,2114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>public_driver_arrange</class>
+ <widget class="QWidget" name="public_driver_arrange">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1089</width>
+    <height>985</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QComboBox{
+	background-color: rgba(100, 100, 100,100); 
+}
+QLineEdit{
+	background-color: rgba(25, 25, 100,80); 
+}
+QCheckBox{
+	background-color: rgba(25, 125, 100,80); 
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="sizeConstraint">
+        <enum>QLayout::SizeConstraint::SetFixedSize</enum>
+       </property>
+       <item>
+        <widget class="QComboBox" name="comboBox_driver"/>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_car"/>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_time_code"/>
+       </item>
+       <item>
+        <widget class="QDateEdit" name="dateEdit">
+         <property name="dateTime">
+          <datetime>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+           <year>2024</year>
+           <month>12</month>
+           <day>1</day>
+          </datetime>
+         </property>
+         <property name="displayFormat">
+          <string>yyyy/M</string>
+         </property>
+         <property name="date">
+          <date>
+           <year>2024</year>
+           <month>12</month>
+           <day>1</day>
+          </date>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>保存</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="sizeConstraint">
+        <enum>QLayout::SizeConstraint::SetFixedSize</enum>
+       </property>
+       <item>
+        <widget class="QPushButton" name="pushButton_8">
+         <property name="text">
+          <string>日替換</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_7">
+         <property name="text">
+          <string>一替換</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_6">
+         <property name="text">
+          <string>二替換</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>三替換</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="text">
+          <string>四替換</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="text">
+          <string>五替換</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="text">
+          <string>六替換</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLineEdit" name="lineEdit_7">
+         <property name="text">
+          <string>日</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_6">
+         <property name="text">
+          <string>一</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_5">
+         <property name="text">
+          <string>二</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_4">
+         <property name="text">
+          <string>三</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_3">
+         <property name="text">
+          <string>四</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_2">
+         <property name="text">
+          <string>五</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="text">
+          <string>六</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="5">
+        <widget class="QFrame" name="frames_4">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_22">
+          <item row="3" column="3">
+           <widget class="QCheckBox" name="checkBoxs_4_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QComboBox" name="comboBox_4_1"/>
+          </item>
+          <item row="2" column="4">
+           <widget class="QComboBox" name="comboBox_4_2"/>
+          </item>
+          <item row="3" column="4">
+           <widget class="QComboBox" name="comboBox_4_3"/>
+          </item>
+          <item row="2" column="3">
+           <widget class="QCheckBox" name="checkBoxs_4_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QCheckBox" name="checkBoxs_4_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_4"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="QFrame" name="frames_1">
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_13">
+            <item row="3" column="0">
+             <widget class="QCheckBox" name="checkBoxs_1_3">
+              <property name="text">
+               <string>晚班</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="comboBox_1_1"/>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="checkBoxs_1_2">
+              <property name="text">
+               <string>午班</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QComboBox" name="comboBox_1_3"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="checkBoxs_1_1">
+              <property name="text">
+               <string>早班</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="comboBox_1_2"/>
+            </item>
+            <item row="0" column="0" colspan="2">
+             <widget class="QLineEdit" name="lineEdits_1"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="8">
+        <widget class="QFrame" name="frames_7">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_14">
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_7_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_7_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_7_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_7_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_7_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_7_2"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_7"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="QFrame" name="frames_5">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_23">
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="checkBoxs_5_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="checkBoxs_5_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="checkBoxs_5_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QComboBox" name="comboBox_5_1"/>
+          </item>
+          <item row="2" column="2">
+           <widget class="QComboBox" name="comboBox_5_2"/>
+          </item>
+          <item row="3" column="2">
+           <widget class="QComboBox" name="comboBox_5_3"/>
+          </item>
+          <item row="0" column="1" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_5"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QFrame" name="frames_2">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_20">
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="checkBoxs_2_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QComboBox" name="comboBox_2_1"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="checkBoxs_2_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="checkBoxs_2_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QComboBox" name="comboBox_2_2"/>
+          </item>
+          <item row="3" column="2">
+           <widget class="QComboBox" name="comboBox_2_3"/>
+          </item>
+          <item row="0" column="1" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_2"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QFrame" name="frames_3">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_21">
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_3_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_3_1"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_3_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_3_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_3_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_3_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_3"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="7">
+        <widget class="QFrame" name="frames_6">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_12">
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_6_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_6_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_6_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_6_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_6_3"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_6_1"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_6"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
+       <item>
+        <widget class="QFrame" name="frames_8">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_15">
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_8_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBox_8_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBox_8_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_8_1"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_8_2"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_8_3"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_8"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_9">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_16">
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_9_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_9_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_9_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_9_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_9_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_9_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_9"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_10">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_17">
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_10_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_10_2"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_10_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_10_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_10_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_10_1"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_10"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_11">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_19">
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_11_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_11_3"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_11_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_11_2"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_11_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_11_1"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_11"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_12">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_25">
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_12_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_12_1"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_12_3"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_12_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_12_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_12_2"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_12"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_13">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_26">
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_13_2"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_13_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_13_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_13_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_13_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_13_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_13"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_14">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_28">
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_14_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_14_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_14_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_14_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_14_1"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_14_2"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_14"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <widget class="QFrame" name="frames_15">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_15_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_15_3"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_15_2"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_15_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_15_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_15_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_15"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_16">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_16_2"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_16_1"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_16_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_16_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_16_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_16_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_16"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_17">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_18">
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_17_3"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_17_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_17_1"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_17_2"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_17_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_17_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_17"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_18">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_24">
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_18_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_18_2"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_18_3"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_18_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_18_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_18_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_18"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_19">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_30">
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_19_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_19_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_19_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_19_2"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_19_1"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_19_3"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_19"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_20">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_27">
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_20_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_20_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_20_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_20_2"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_20_1"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_20_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_20"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_21">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_29">
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_21_2"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_21_3"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_21_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_21_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_21_1"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_21_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_21"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <widget class="QFrame" name="frames_22">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_31">
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_22_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_22_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_22_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_22_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_22_2"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_22_1"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_22"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_23">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_32">
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_23_3"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_23_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_23_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_23_2"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_23_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_23_1"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_23"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_24">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_33">
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_24_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_24_3"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_24_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_24_2"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_24_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_24_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_24"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_25">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_34">
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_25_1"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_25_2"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_25_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_25_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_25_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_25_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_25"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_26">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_35">
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_26_2"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_26_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_26_1"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_26_3"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_26_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_26_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_26"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_27">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_36">
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_27_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_27_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_27_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_27_1"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_27_3"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_27_2"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_27"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_28">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_37">
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_28_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_28_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_28_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_28_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_28_1"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_28_3"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_28"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QFrame" name="frames_29">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_38">
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_29_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_29_2"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_29_1"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_29_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_29_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_29_3"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_29"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_30">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_39">
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_30_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_30_3"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_30_2"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_30_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_30_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_30_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_30"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_31">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_40">
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_31_1"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_31_2"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_31_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_31_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_31_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_31_3"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_31"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_32">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_41">
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_32_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_32_2"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_32_1"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_32_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_32_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_32_3"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_32"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_33">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_42">
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_33_3"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_33_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_33_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_33_2"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_33_1"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_33_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_33"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_34">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_43">
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_34_1"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_34_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_34_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_34_2"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_34_3"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_34_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_34"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_35">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_44">
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_35_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_35_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_35_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_35_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_35_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_35_3"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_35"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QFrame" name="frames_36">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_45">
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_36"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_36_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_36_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_36_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_36_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_36_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_36_3"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_37">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_46">
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_37"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_37_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_37_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_37_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_37_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_37_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_37_3"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_38">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_47">
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_38"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_38_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_38_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_38_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_38_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_38_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_38_3"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_39">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_48">
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_39"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_39_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_39_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_39_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_39_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_39_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_39_3"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_40">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_49">
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_40"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_40_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_40_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_40_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_40_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_40_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_40_3"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QFrame" name="frames_41">
+           <property name="frameShape">
+            <enum>QFrame::Shape::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Shadow::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_50">
+            <item row="0" column="0" colspan="2">
+             <widget class="QLineEdit" name="lineEdits_41"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="checkBoxs_41_1">
+              <property name="text">
+               <string>早班</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="comboBox_41_1"/>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="checkBoxs_41_2">
+              <property name="text">
+               <string>午班</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QComboBox" name="comboBox_41_2"/>
+            </item>
+            <item row="3" column="0">
+             <widget class="QCheckBox" name="checkBoxs_41_3">
+              <property name="text">
+               <string>晚班</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QComboBox" name="comboBox_41_3"/>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QFrame" name="frames_42">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_51">
+          <item row="0" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdits_42"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBoxs_42_1">
+            <property name="text">
+             <string>早班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBox_42_1"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="checkBoxs_42_2">
+            <property name="text">
+             <string>午班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="comboBox_42_2"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="checkBoxs_42_3">
+            <property name="text">
+             <string>晚班</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="comboBox_42_3"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

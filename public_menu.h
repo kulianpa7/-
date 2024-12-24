@@ -29,12 +29,16 @@ private:
         {User, false},
         {Driver,false},
         {Vehicle,false},
+        {Order_list,false},
+        {Driver_Arrange,false},
     };
     std::unordered_map<int, QPointer<BasePage>> Pages = {
         {Role, nullptr},  // 初始化為 nullptr
         {User, nullptr},
         {Driver,nullptr},
         {Vehicle,nullptr},
+        {Order_list,nullptr},
+        {Driver_Arrange,nullptr},
     };
     Ui::public_menu *ui;
     // 創建一個QVector存儲所有需要調整字體的按鈕
