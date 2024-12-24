@@ -15,6 +15,7 @@ enum ButtonType {
     Vehicle,
     Order_list,
     Driver_Arrange,
+    Order_arrange,
     Unknown
 };
 

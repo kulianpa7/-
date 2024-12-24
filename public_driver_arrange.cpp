@@ -3,6 +3,7 @@
 #include "BasePage.h"
 #include "QMessageBox"
 #include "QSqlError"
+#include <functional>
 public_driver_arrange::public_driver_arrange(BasePage *parent)
     : BasePage(parent)
     , ui(new Ui::public_driver_arrange)
@@ -12,7 +13,7 @@ public_driver_arrange::public_driver_arrange(BasePage *parent)
 
     connect(ui->dateEdit, &QDateEdit::dateChanged, this, &public_driver_arrange::onDateChanged);
     connect(ui->comboBox_driver,&QComboBox::currentTextChanged,this,&public_driver_arrange::on_driver_changed);
-    onDateChanged(ui->dateEdit->date());
+    connect(ui->save_button,&QPushButton::clicked,this,&public_driver_arrange::save);
 
     // 初始化資料庫
     db = QSqlDatabase::addDatabase("QPSQL"); // 使用 PostgreSQL 驅動
@@ -25,27 +26,44 @@ public_driver_arrange::public_driver_arrange(BasePage *parent)
         QMessageBox::critical(this, "資料庫錯誤", db.lastError().text());
         return;
     }
+    QVector<QVector<int>> vec={{},{},{},{},{},{},{}};
+    for(int i = 0;i<7;i++){
+        for(int j = 0;j<6;j++){
+            vec[i].push_back(j*7+i+1);
+        }
+    }
+    // weekday 0 to 6
+    for (int i = 0; i <= 6; ++i) {
+        QPushButton* button = findChild<QPushButton*>(QString("weekday_%1").arg(i));
+        if (button) {connect(button, &QPushButton::clicked, std::bind(&public_driver_arrange::push_button_checkboxANDcombobox, this, vec, i));}
+    }
+    // weekday_1to5
+    for (int i = 1; i <= 5; ++i) {connect(ui->weekday_1to5,&QPushButton::clicked,std::bind(&public_driver_arrange::push_button_checkboxANDcombobox,this, vec, i));}
     combo_driver();
     combo_car();
     on_driver_changed();
     combo_box_car();
+
+    QString comboBoxName = QString("comboBox_time_code");
+    QComboBox* comboBox = findChild<QComboBox*>(comboBoxName);
+    comboBox->addItem("早班", 1);
+    comboBox->addItem("午班", 2);
+    comboBox->addItem("晚班", 3);
+
+    onDateChanged(ui->dateEdit->date());
 }
 
 public_driver_arrange::~public_driver_arrange()
 {
     delete ui;
 }
-
-void public_driver_arrange::combo_box_car() {
-    // 获取用户选择的日期
-    QDate selectedDate = ui->dateEdit->date();
+void public_driver_arrange::push_button_checkboxANDcombobox(QVector<QVector<int>> vec, int weekday) {
+    QDate selectedDate = ui->dateEdit->date();  // Assume dateEdit is the date picker
     qDebug() << "Selected Date: " << selectedDate;
-
-    // 获取日期的星期几
     int dayOfWeek = selectedDate.dayOfWeek();
     int first_day = 0;
 
-    // 设置第一天的值（第一天为星期几）
+    // Set the first day value (week start day)
     switch (dayOfWeek) {
     case 1: first_day = 2; break; // Monday
     case 2: first_day = 3; break; // Tuesday
@@ -56,6 +74,49 @@ void public_driver_arrange::combo_box_car() {
     case 7: first_day = 1; break; // Sunday
     default: break;
     }
+
+    int daysInMonth = selectedDate.daysInMonth();
+    int lastDay = first_day + daysInMonth - 1; // Correct the range check
+
+    if (vec.size() > weekday && !vec[weekday].isEmpty()) {
+        for (int i = 0; i < vec[weekday].size(); ++i) {
+            if (vec[weekday][i] >= first_day && vec[weekday][i] <= lastDay) {
+                int carid = ui->comboBox_car->currentData().toInt();
+                int codeid = ui->comboBox_time_code->currentData().toInt();
+
+                // Handle checkbox
+                QString checkBoxName = QString("checkBoxs_%1_%2").arg(vec[weekday][i]).arg(codeid);
+                QCheckBox* checkBox = findChild<QCheckBox*>(checkBoxName);
+                if (checkBox) {
+                    checkBox->setChecked(true);
+                } else {
+                    qDebug() << "CheckBox not found: " << checkBoxName;
+                }
+
+                // Handle combo box
+                QString comboBoxName = QString("comboBox_%1_%2").arg(vec[weekday][i]).arg(codeid);
+                QComboBox* comboBox = findChild<QComboBox*>(comboBoxName);
+                if (comboBox) {
+                    int index = comboBox->findData(carid);
+                    if (index != -1) {
+                        comboBox->setCurrentIndex(index);
+                    } else {
+                        comboBox->setCurrentIndex(0); // Default selection
+                    }
+                } else {
+                    qDebug() << "ComboBox not found or has no items: " << comboBoxName;
+                }
+            }
+        }
+    } else {
+        qDebug() << "Invalid weekday or empty vector for the given weekday.";
+    }
+}
+
+void public_driver_arrange::combo_box_car() {
+    // 获取用户选择的日期
+    QDate selectedDate = ui->dateEdit->date();
+    qDebug() << "Selected Date: " << selectedDate;
 
     // 查询车辆数据
     QSqlQuery query;
@@ -206,6 +267,132 @@ void public_driver_arrange::combo_driver() {
     }
 }
 
+void public_driver_arrange::save(){
+    QDate selectedDate = ui->dateEdit->date();  // 假设 dateEdit 是日期选择控件
+    qDebug() << "Selected Date: " << selectedDate;
+    int dayOfWeek = selectedDate.dayOfWeek();
+    int daysInMonth = selectedDate.daysInMonth();
+    int first_day = 0;
+    // 設定第一天的值（第一天為星期幾）
+    switch (dayOfWeek) {
+    case 1: first_day = 2;break;// Monday
+    case 2: first_day = 3;break;// Tuesday
+    case 3: first_day = 4;break;// Wednesday
+    case 4: first_day = 5;break;// Thursday
+    case 5: first_day = 6;break;// Friday
+    case 6: first_day = 7;break;// Saturday
+    case 7: first_day = 1;break;// Sunday
+    default:break;
+    }
+    QVector<QMap<QString, QString>> results;
+    QString driverid = ui->comboBox_driver->currentData().toString();
+    QMap<int,int> code_to_id;
+    // 查询数据库以获取整个 12 月的 driver_car_scheduling 数据
+    QSqlQuery query;
+    query.prepare("SELECT id, time_code FROM \"time\" ");
+    // 执行查询并检查结果
+    if (!query.exec()) {
+        qDebug() << "Failed to execute query:" << query.lastError().text();
+        QMessageBox::critical(this, "Database Error", "無法加載排程數據：" + query.lastError().text());
+        return;
+    }
+    while (query.next()) {code_to_id[query.value("time_code").toInt()] = query.value("id").toInt();}
+    deleteAllForMonth();
+    for (int i = 1; i <= 42; ++i) {
+        if (i >= first_day && i < first_day + daysInMonth) {
+            QString frameName = QString("frames_%1").arg(i);
+            QWidget *frame = findChild<QWidget*>(frameName);
+            QString lineEditName = QString("lineEdits_%1").arg(i);
+            QLineEdit *lineEdit = frame->findChild<QLineEdit*>(lineEditName);
+            // Initialize check maps for each row (1, 2, 3)
+            QMap<QString, QString> check1, check2, check3;
+            // Iterate over columns (1, 2, 3)
+            for (int col = 1; col <= 3; ++col) {
+                QString checkBoxName = QString("checkBoxs_%1_%2").arg(first_day + i - 1).arg(col);
+                QCheckBox* checkBox = findChild<QCheckBox*>(checkBoxName);
+                QString comboBoxName = QString("comboBox_%1_%2").arg(first_day + i - 1).arg(col);
+                QComboBox* comboBox = findChild<QComboBox*>(comboBoxName);
+                // Use different check maps for each column
+                if (checkBox && comboBox) {
+                    QString checkState = (checkBox->checkState() == Qt::Checked) ? comboBox->currentData().toString() : QString();
+                    if (col == 1) check1["check1"] = checkState;
+                    if (col == 2) check2["check2"] = checkState;
+                    if (col == 3) check3["check3"] = checkState;
+                }
+            }
+            // Create a QMap and populate it
+            QMap<QString, QString> resultMap;
+            resultMap["day"] = lineEdit->text();
+            resultMap["check1"] = check1.value("check1", QString());
+            resultMap["check2"] = check2.value("check2", QString());
+            resultMap["check3"] = check3.value("check3", QString());
+            // Now push the map into the results vector
+            results.push_back(resultMap);
+        }
+    }
+    qDebug() << results << '\n';
+    QString date = ui->dateEdit->text();
+    for (const auto& mapc : results) {
+        QString check1 = mapc.value("check1");
+        QString check2 = mapc.value("check2");
+        QString check3 = mapc.value("check3");
+        if(!check1.isEmpty()){
+            query.prepare("INSERT INTO driver_car_scheduling "
+                          "(\"date\", time_id, driver_id, car_id, time_code) "
+                          "VALUES (:date, :time_id, :driver_id, :car_id, :time_code)");
+
+            query.bindValue(":date"         , date.replace('/','-')+"-"+mapc.value("day"));
+            query.bindValue(":time_id"      , code_to_id[0]);
+            query.bindValue(":driver_id"    , driverid);
+            query.bindValue(":car_id"       , check1);
+            query.bindValue(":time_code"    , 0);
+            // 执行查询并检查结果
+            if (!query.exec()) {
+                qDebug() << "Failed to execute query:" << query.lastError().text();
+                QMessageBox::critical(this, "Database Error", "無法加載排程數據：" + query.lastError().text());
+                return;
+            }
+        }
+        if(!check2.isEmpty()){
+            query.prepare("INSERT INTO driver_car_scheduling "
+                          "(\"date\", time_id, driver_id, car_id, time_code) "
+                          "VALUES (:date, :time_id, :driver_id, :car_id, :time_code)");
+
+            query.bindValue(":date"         , date.replace('/','-')+"-"+mapc.value("day"));
+            query.bindValue(":time_id"      , code_to_id[1]);
+            query.bindValue(":driver_id"    , driverid);
+            query.bindValue(":car_id"       , check2);
+            query.bindValue(":time_code"    , 1);
+            // 执行查询并检查结果
+            if (!query.exec()) {
+                qDebug() << "Failed to execute query:" << query.lastError().text();
+                QMessageBox::critical(this, "Database Error", "無法加載排程數據：" + query.lastError().text());
+                return;
+            }
+        }
+        if(!check3.isEmpty()){
+            query.prepare("INSERT INTO driver_car_scheduling "
+                          "(\"date\", time_id, driver_id, car_id, time_code) "
+                          "VALUES (:date, :time_id, :driver_id, :car_id, :time_code)");
+
+            query.bindValue(":date"         , date.replace('/','-')+"-"+mapc.value("day"));
+            query.bindValue(":time_id"      , code_to_id[2]);
+            query.bindValue(":driver_id"    , driverid);
+            query.bindValue(":car_id"       , check3);
+            query.bindValue(":time_code"    , 2);
+            // 执行查询并检查结果
+            if (!query.exec()) {
+                qDebug() << "Failed to execute query:" << query.lastError().text();
+                QMessageBox::critical(this, "Database Error", "無法加載排程數據：" + query.lastError().text());
+                return;
+            }
+        }
+    }
+
+    onDateChanged(ui->dateEdit->date());
+
+}
+
 void public_driver_arrange::combo_car() {
     // 清空已有的 QComboBox 条目（假设 QComboBox 名为 driverComboBox）
     ui->comboBox_car->clear();
@@ -274,14 +461,15 @@ void public_driver_arrange::onDateChanged(const QDate &date)
             int day = i - first_day + 1;
 
             // 設置背景顏色，根據日子設置顏色
-            QString color = "background-color: rgba(0, 100, 255, 50);";
+            QString color = "background-color: rgba(0, 100, 255, 100);";
 
             // 設置每個 frame 的背景顏色，確保只影響 QFrame
             QString frameName = QString("frames_%1").arg(i);
             QWidget *frame = findChild<QWidget*>(frameName);
             if (frame) {
                 // 設置樣式，僅改變 QFrame 的背景顏色
-                frame->setStyleSheet("QFrame { " + color + " border: none; }");
+                frame->setStyleSheet("QFrame { " + color + " border: none; }"
+                                     "QComboBox{background-color: rgba(100, 100, 100,100);}");
 
                 // 尋找 QLineEdit，並填入日期
                 QString lineEditName = QString("lineEdits_%1").arg(i);
@@ -299,19 +487,42 @@ void public_driver_arrange::onDateChanged(const QDate &date)
             QString frameName = QString("frames_%1").arg(i);
             QWidget *frame = findChild<QWidget*>(frameName);
             if (frame) {
-                frame->setStyleSheet("QFrame { background-color: transparent; border: none; }");
-            }
-
-            // 尋找 QLineEdit，清空日期
-            QString lineEditName = QString("lineEdits_%1").arg(i);
-            QLineEdit *lineEdit = frame->findChild<QLineEdit*>(lineEditName);
-            if (lineEdit) {
-                lineEdit->clear();
-                lineEdit->setReadOnly(false);  // 恢復為可編輯
+                frame->setStyleSheet("QFrame { background-color: rgba(0, 0, 0, 100); border: none; }");
             }
         }
     }
 }
 
+void public_driver_arrange::deleteAllForMonth() {
+    // Get the selected date from the date edit widget
+    QString date = ui->dateEdit->text();
+    int DriverId = ui->comboBox_driver->currentData().toInt();
 
+    qDebug() << "Selected Date from UI: " << DriverId;
+    // Convert it to QDate for easier manipulation
+    QDate selectedDate = QDate::fromString(date, "yyyy/MM");
+    qDebug() << "Selected selectedDate from UI: " << selectedDate;
+    // Get the year and month from the selected date
+    int year = selectedDate.year();
+    int month = selectedDate.month();
+
+    // Construct the start of the month and end of the month in "yyyy-MM-dd" format
+    QDate startOfMonth(year, month, 1);
+    QDate endOfMonth = startOfMonth.addMonths(1).addDays(-1);  // End date is the last day of the month
+
+    // Convert to string format (e.g., "yyyy-MM-dd")
+    QString startDateString = startOfMonth.toString("yyyy-MM-dd");
+    QString endDateString = endOfMonth.toString("yyyy-MM-dd");
+    qDebug() << "Start Date: " << startDateString;
+    qDebug() << "End Date: " << endDateString;
+
+    // Prepare and execute the DELETE query
+    QSqlQuery query;
+    query.prepare("DELETE FROM driver_car_scheduling "
+                  "WHERE \"date\" BETWEEN :start_date AND :end_date AND driver_id = :driver_id");
+    query.bindValue(":start_date", startDateString);
+    query.bindValue(":end_date", endDateString);
+    query.bindValue(":driver_id", DriverId);
+    query.exec();
+}
 

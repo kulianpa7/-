@@ -23,10 +23,10 @@ public_order_list::public_order_list(BasePage *parent)
     connect(ui->refresh_button, &QPushButton::clicked, this, &public_order_list::loadDataFromDatabase);
     connect(ui->add_button, &QPushButton::clicked, this, &public_order_list::addrow);
 
-    ui->tableWidget->setColumnCount(8);  // 8 列
+    ui->tableWidget->setColumnCount(9);  // 8 列
     // 設置表格標題
     ui->tableWidget->setHorizontalHeaderLabels({
-        "乘客名稱", "電話", "乘客數量","司機","車牌號碼","時間","狀態","刪除按鈕"
+        "乘客名稱", "電話", "乘客數量","地址","司機","車牌號碼","時間","狀態","刪除按鈕"
     });
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
@@ -74,6 +74,7 @@ void public_order_list::loadDataFromDatabase()
         "    o.date_time, "
         "    o.driver_id,"
         "    o.car_id,"
+        "    o.position,"
         "    o.order_status,"
         "    d.\"name\" AS driver_name, "
         "    car.car_number AS car_number, "
@@ -106,6 +107,7 @@ void public_order_list::loadDataFromDatabase()
                 "passenger_name",
                 "phone",
                 "how_many",
+                "position",
                 "driver_name",
                 "car_number",
                 "date_time",
@@ -113,7 +115,7 @@ void public_order_list::loadDataFromDatabase()
         for (int i = 0; i < strs.length(); ++i) {
             QTableWidgetItem* item = new QTableWidgetItem(query.value(strs[i]).toString());
             if (i == 0) item->setData(Qt::UserRole, query.value("id"));
-            if (i == 3 || i == 4 || i == 5) item->setFlags(item->flags() & ~Qt::ItemIsEditable);
+            if (i == 4 || i == 5 || i==6) item->setFlags(item->flags() & ~Qt::ItemIsEditable);
             item->setTextAlignment(Qt::AlignCenter);  // 置中對齊
             ui->tableWidget->setItem(row, i, item);  // 插入到表格中
         }
@@ -132,7 +134,7 @@ void public_order_list::loadDataFromDatabase()
             comboBox->setCurrentIndex(index);
         }
         // 将下拉框放入第二列
-        ui->tableWidget->setCellWidget(row, 6, comboBox);
+        ui->tableWidget->setCellWidget(row, 7, comboBox);
         // // 连接 QComboBox 的 currentIndexChanged 信号
         connect(comboBox, &QComboBox::currentIndexChanged, this, [this, row](int index) {
             qDebug() << "Row" << row << ", Column 1 (Role) index changed!";
@@ -282,7 +284,7 @@ void public_order_list::saveDataToDatabase(int row, int id)
     }
     // 取得該行的用戶名，並檢查是否為空
     QVector<QString> strs;
-    for(int i = 0 ;i<=2;++i){
+    for(int i = 0 ;i<=3;++i){
         if (ui->tableWidget->item(row, i) != nullptr) {
             strs.push_back(ui->tableWidget->item(row, i)->text());
         }
@@ -292,11 +294,12 @@ void public_order_list::saveDataToDatabase(int row, int id)
     //     "passenger_name",
     //     "phone",
     //     "how_many",
+    //     "position",
     // };
     QString order_status_id = "";
-    // 确保单元格内确实有一个小部件（假设在第 6 列）
-    if (ui->tableWidget->cellWidget(row, 6) != nullptr) {
-        QComboBox* comboBox = qobject_cast<QComboBox*>(ui->tableWidget->cellWidget(row, 6));
+    // 确保单元格内确实有一个小部件（假设在第 7 列）
+    if (ui->tableWidget->cellWidget(row, 7) != nullptr) {
+        QComboBox* comboBox = qobject_cast<QComboBox*>(ui->tableWidget->cellWidget(row, 7));
         if (comboBox != nullptr) {
             order_status_id = comboBox->currentData().toString(); // 获取与当前选项关联的Data
         } else {
@@ -306,12 +309,13 @@ void public_order_list::saveDataToDatabase(int row, int id)
         qDebug() << "Error: No widget in the specified cell.";
     }
     // 先初始化 SQL 查询
-    QString sql = "UPDATE orders SET "
-                  "passenger_name = :passenger_name,"
-                  "phone = :phone,"
-                  "how_many = :how_many,"
-                  "order_status = :order_status";
-
+    QString sql =
+        "UPDATE orders SET "
+        "passenger_name   = :passenger_name,"
+        "phone            = :phone,"
+        "how_many         = :how_many,"
+        "position         = :position,"
+        "order_status     = :order_status";
     sql += " WHERE id = :id";  // 添加 WHERE 子句
 
     // 创建 SQL 查询并准备执行
@@ -323,7 +327,9 @@ void public_order_list::saveDataToDatabase(int row, int id)
     query.bindValue(":passenger_name", strs[0]);        // "passenger_name",
     query.bindValue(":phone", strs[1]);                 // "phone",
     query.bindValue(":how_many", strs[2]);              // "how_many",
+    query.bindValue(":position", strs[3]);              // "position"
     query.bindValue(":order_status", order_status_id);  // "order_status_id"
+
     // 执行查询
     if (query.exec()) {
         qDebug() << "User updated successfully!";

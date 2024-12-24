@@ -17,19 +17,21 @@ class public_menu : public QWidget
     Q_OBJECT
 
 public:
-    explicit public_menu(QWidget *parent = nullptr);
+    explicit public_menu(const QString &userName, QWidget *parent = nullptr);
     ~public_menu();
 private slots:
     void resizeEvent(QResizeEvent *event) override;
     void on_buttons_click(const QString& buttonType);
     ButtonType stringToButtonType(const QString& buttonType);
 private:
+    QString m_userName;  // Store the username
     std::unordered_map<int, bool> isOpens = {
         {Role, false},
         {User, false},
         {Driver,false},
         {Vehicle,false},
         {Order_list,false},
+        {Order_arrange,false},
         {Driver_Arrange,false},
     };
     std::unordered_map<int, QPointer<BasePage>> Pages = {
@@ -38,6 +40,7 @@ private:
         {Driver,nullptr},
         {Vehicle,nullptr},
         {Order_list,nullptr},
+        {Order_arrange,nullptr},
         {Driver_Arrange,nullptr},
     };
     Ui::public_menu *ui;

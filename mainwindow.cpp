@@ -82,7 +82,7 @@ void MainWindow::on_loginBt_clicked()
     if(auth || (userName == "USERNAME" && password == "PASSWORD"))
     {
         this->close();
-        public_menu *menu_main = new public_menu;
+        public_menu *menu_main = new public_menu(userName);
         menu_main->show();
     }else{
          QMessageBox::warning(this, "登入失敗", "請確認帳號密碼是否輸入正確");

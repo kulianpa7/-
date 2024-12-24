@@ -6,20 +6,20 @@
 #include "public_vehicle.h"
 #include "public_driver.h"
 #include "public_order_list.h"
-#include "public_driver_arrange.h".h"
+#include "public_driver_arrange.h"
 
 #include <QPushButton>
 #include <QResizeEvent>
 #include <BasePage.h>
+#include <QSqlError>
+#include <QMessageBox>
 
-
-public_menu::public_menu(QWidget *parent)
+public_menu::public_menu(const QString &userName,QWidget *parent)
     : QWidget(parent)
+    , m_userName(userName)// Initialize m_userName with userName
     , ui(new Ui::public_menu)
 {
     ui->setupUi(this);
-
-
     // 將所有按鈕添加到 QVector 中
     buttons.append(ui->user_button);  // 假設有 pushButton_1, pushButton_2, ..., pushButton_6
     buttons.append(ui->role_button);
@@ -53,6 +53,7 @@ ButtonType public_menu::stringToButtonType(const QString& buttonType) {
     if (buttonType == "velicle") return Vehicle;
     if (buttonType == "order_list") return Order_list;
     if (buttonType == "driver_arrange") return Driver_Arrange;
+    if (buttonType == "order_arrange") return Order_arrange;
     return Unknown;
 }
 void public_menu::on_buttons_click(const QString& buttonType) {
@@ -61,6 +62,59 @@ void public_menu::on_buttons_click(const QString& buttonType) {
     // 檢查頁面是否已經開啟
     if (isOpens[type]) {
         return; // 如果已經開啟，直接返回
+    }
+    QSqlQuery query1;
+    query1.prepare("SELECT id FROM users WHERE username = :username AND is_del = 0");
+    query1.bindValue(":username", m_userName);
+    int id=0;
+    // Execute the query
+    if (query1.exec()) {
+        // Check if there is a result
+        if (query1.next()) {
+            id= query1.value("id").toInt();
+            qDebug() << "ID:" << id << "Username:" << m_userName;
+        } else {
+            qDebug() << "No matching user found for username:" << m_userName;
+        }
+    } else {
+        qDebug() << "Query execution failed:" << query1.lastError().text();
+    }
+    QSqlQuery query;
+    query.prepare(
+        "SELECT roles.* "
+        "FROM users "
+        "LEFT JOIN roles ON users.role_id = roles.id "
+        "WHERE users.id = :id"
+        );
+    query.bindValue(":id", id);
+
+    if (!query.exec()) {
+        qDebug() << "Query execution failed:" << query.lastError().text();
+        return;
+    }
+
+    // Map types to database fields
+    QMap<int, QString> typeToField = {
+        {Role, "role"},
+        {User, "backend_staff"},
+        {Driver, "driver"},
+        {Driver_Arrange, "driver_schedule"},
+        {Order_arrange, "order_arrangement"},
+        {Order_list, "order_list"}
+    };
+
+    // Check conditions in a loop
+    if (query.next()) {  // Move to the first record
+        if (typeToField.contains(type)) {
+            QString field = typeToField[type];
+            if (!query.value(field).toBool()) {
+                QMessageBox::critical(this, "Database Error", "您沒有訪問權限");
+                qDebug() << "Access denied for type:" << type << ", field:" << field;
+                return;
+            }
+        }
+    } else {
+        qDebug() << "No records found for user ID:" << id;
     }
 
     // 如果頁面沒有開啟，創建對應的頁面

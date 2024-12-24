@@ -26,6 +26,9 @@ private slots:
     void combo_car();
     void on_driver_changed();
     void combo_box_car();
+    void push_button_checkboxANDcombobox(QVector<QVector<int>>vec,int weekday);
+    void save();
+    void deleteAllForMonth();
 };
 
 #endif // PUBLIC_DRIVER_ARRANGE_H
