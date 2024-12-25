@@ -13,12 +13,12 @@ public_driver_arrange::public_driver_arrange(BasePage *parent)
 
     connect(ui->dateEdit, &QDateEdit::dateChanged, this, &public_driver_arrange::onDateChanged);
     connect(ui->comboBox_driver,&QComboBox::currentTextChanged,this,&public_driver_arrange::on_driver_changed);
-    connect(ui->save_button,&QPushButton::clicked,this,&public_driver_arrange::save);
-
+    connect(ui->save_button ,&QPushButton::clicked,this,&public_driver_arrange::save);
+    connect(ui->clear_button,&QPushButton::clicked,this,&public_driver_arrange::clear_check);
     // 初始化資料庫
     db = QSqlDatabase::addDatabase("QPSQL"); // 使用 PostgreSQL 驅動
     db.setHostName("localhost");            // 資料庫伺服器地址
-    db.setDatabaseName("postgres");        // 資料庫名稱
+    db.setDatabaseName("healthy_pig");        // 資料庫名稱
     db.setUserName("postgres");             // 使用者名稱
     db.setPassword("password");             // 密碼
 
@@ -201,6 +201,14 @@ void public_driver_arrange::on_driver_changed() {
 
     // 清空所有复选框状态
     for (int row = 1; row <= 42; ++row) {  // 遍历所有 42 行
+        QString line_editName = QString("lineEdits_%1").arg(row);
+        // 查找對應的 QLineEdit
+        QLineEdit* lineEdit = this->findChild<QLineEdit*>(line_editName);
+        if (lineEdit) {
+            lineEdit->clear(); // 清空內容
+        } else {
+            qDebug() << "QLineEdit not found with object name:" << line_editName;
+        }
         for (int col = 1; col <= 3; ++col) {  // 遍历 3 列
             QString checkBoxName = QString("checkBoxs_%1_%2").arg(row).arg(col);
             QCheckBox* checkBox = findChild<QCheckBox*>(checkBoxName);
@@ -266,6 +274,23 @@ void public_driver_arrange::combo_driver() {
         ui->comboBox_driver->setCurrentIndex(0); // 默认选择第一个条目
     }
 }
+void public_driver_arrange::clear_check(){
+    // 清空所有复选框状态
+    for (int row = 1; row <= 42; ++row) {  // 遍历所有 42 行
+        for (int col = 1; col <= 3; ++col) {  // 遍历 3 列
+            QString checkBoxName = QString("checkBoxs_%1_%2").arg(row).arg(col);
+            QCheckBox* checkBox = findChild<QCheckBox*>(checkBoxName);
+            if (checkBox) {
+                checkBox->setChecked(false);  // 重置复选框状态
+            }
+            QString comboBoxName = QString("comboBox_%1_%2").arg(row).arg(col);
+            QComboBox* comboBox = findChild<QComboBox*>(comboBoxName);
+            int index = comboBox->findData(-1);
+            if (index != -1)    comboBox->setCurrentIndex(index);  // 设置为当前选中项
+            else                comboBox->setCurrentIndex(0);  // 如果找不到，设置默认值
+        }
+    }
+}
 
 void public_driver_arrange::save(){
     QDate selectedDate = ui->dateEdit->date();  // 假设 dateEdit 是日期选择控件
@@ -308,9 +333,9 @@ void public_driver_arrange::save(){
             QMap<QString, QString> check1, check2, check3;
             // Iterate over columns (1, 2, 3)
             for (int col = 1; col <= 3; ++col) {
-                QString checkBoxName = QString("checkBoxs_%1_%2").arg(first_day + i - 1).arg(col);
+                QString checkBoxName = QString("checkBoxs_%1_%2").arg(i).arg(col);
                 QCheckBox* checkBox = findChild<QCheckBox*>(checkBoxName);
-                QString comboBoxName = QString("comboBox_%1_%2").arg(first_day + i - 1).arg(col);
+                QString comboBoxName = QString("comboBox_%1_%2").arg(i).arg(col);
                 QComboBox* comboBox = findChild<QComboBox*>(comboBoxName);
                 // Use different check maps for each column
                 if (checkBox && comboBox) {
@@ -499,6 +524,7 @@ void public_driver_arrange::deleteAllForMonth() {
     int DriverId = ui->comboBox_driver->currentData().toInt();
 
     qDebug() << "Selected Date from UI: " << DriverId;
+    qDebug() << "Date:" << date;
     // Convert it to QDate for easier manipulation
     QDate selectedDate = QDate::fromString(date, "yyyy/MM");
     qDebug() << "Selected selectedDate from UI: " << selectedDate;

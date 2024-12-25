@@ -98,17 +98,19 @@ void public_menu::on_buttons_click(const QString& buttonType) {
         {Role, "role"},
         {User, "backend_staff"},
         {Driver, "driver"},
+        {Vehicle, "driver"},
         {Driver_Arrange, "driver_schedule"},
         {Order_arrange, "order_arrangement"},
         {Order_list, "order_list"}
     };
 
-    // Check conditions in a loop
+    // // Check conditions in a loop
     if (query.next()) {  // Move to the first record
         if (typeToField.contains(type)) {
             QString field = typeToField[type];
             if (!query.value(field).toBool()) {
-                QMessageBox::critical(this, "Database Error", "您沒有訪問權限");
+                if(type != Vehicle)
+                    QMessageBox::critical(this, "Database Error", "您沒有訪問權限");
                 qDebug() << "Access denied for type:" << type << ", field:" << field;
                 return;
             }

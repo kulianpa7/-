@@ -29,6 +29,7 @@ private slots:
     void push_button_checkboxANDcombobox(QVector<QVector<int>>vec,int weekday);
     void save();
     void deleteAllForMonth();
+    void clear_check();
 };
 
 #endif // PUBLIC_DRIVER_ARRANGE_H

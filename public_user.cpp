@@ -32,7 +32,7 @@ public_user::public_user(BasePage *parent)
     // 初始化資料庫
     db = QSqlDatabase::addDatabase("QPSQL"); // 使用 PostgreSQL 驅動
     db.setHostName("localhost");            // 資料庫伺服器地址
-    db.setDatabaseName("postgres");        // 資料庫名稱
+    db.setDatabaseName("healthy_pig");        // 資料庫名稱
     db.setUserName("postgres");             // 使用者名稱
     db.setPassword("password");             // 密碼
 
@@ -72,7 +72,7 @@ void public_user::loadDataFromDatabase()
         "    u.role_id "
         "FROM "
         "    users u "
-        "JOIN "
+        "left JOIN "
         "    roles r ON u.role_id = r.id "
         "WHERE "
         "    u.is_del = 0 "
@@ -118,15 +118,19 @@ void public_user::loadDataFromDatabase()
         // 创建下拉框 (QComboBox) 并填充角色名称
         QComboBox *comboBox = new QComboBox();
         // 将角色列表添加到下拉框
+        comboBox->addItem("沒有角色", -1);  // 角色名作为显示值，id作为隐藏数据
         for (auto it = rolesMap.begin(); it != rolesMap.end(); ++it) {
             comboBox->addItem(it.value(), it.key());  // 角色名作为显示值，id作为隐藏数据
         }
 
         // 设置下拉框默认选中的值为当前用户的角色
         int currentRoleId = query.value("role_id").toInt();
+        qDebug() << "currentRoleId=" <<  query.value("role_id");
         int index = comboBox->findData(currentRoleId);
         if (index >= 0) {
             comboBox->setCurrentIndex(index);
+        }else{
+            comboBox->setCurrentIndex(0);
         }
 
         // 将下拉框放入第二列

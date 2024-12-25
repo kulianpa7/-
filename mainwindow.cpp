@@ -29,7 +29,7 @@ bool authenticateUser(const QString& username, const QString& password) {
     // 建立資料庫連接
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");   // 使用 PostgreSQL 驅動
     db.setHostName("localhost");                            // 資料庫伺服器地址
-    db.setDatabaseName("postgres");                         // 資料庫名稱
+    db.setDatabaseName("healthy_pig");                         // 資料庫名稱
     db.setUserName("postgres");                             // 使用者名稱
     db.setPassword("password");                             // 密碼
 
