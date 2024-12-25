@@ -103,7 +103,6 @@ void public_menu::on_buttons_click(const QString& buttonType) {
         {Order_arrange, "order_arrangement"},
         {Order_list, "order_list"}
     };
-
     // // Check conditions in a loop
     if (query.next()) {  // Move to the first record
         if (typeToField.contains(type)) {
