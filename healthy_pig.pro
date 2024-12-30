@@ -14,6 +14,7 @@ SOURCES += \
     public_driver.cpp \
     public_driver_arrange.cpp \
     public_menu.cpp \
+    public_order_arrange.cpp \
     public_order_list.cpp \
     public_role.cpp \
     public_user.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     public_driver.h \
     public_driver_arrange.h \
     public_menu.h \
+    public_order_arrange.h \
     public_order_list.h \
     public_role.h \
     public_user.h \
@@ -35,6 +37,7 @@ FORMS += \
     public_driver.ui \
     public_driver_arrange.ui \
     public_menu.ui \
+    public_order_arrange.ui \
     public_order_list.ui \
     public_role.ui \
     public_user.ui \
