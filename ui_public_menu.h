@@ -24,9 +24,6 @@ class Ui_public_menu
 {
 public:
     QGridLayout *gridLayout_3;
-    QSpacerItem *verticalSpacer_3;
-    QSpacerItem *verticalSpacer_2;
-    QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_3;
     QGridLayout *gridLayout_2;
     QVBoxLayout *verticalLayout_2;
@@ -39,6 +36,9 @@ public:
     QPushButton *driver_scheduling_button;
     QPushButton *order_arrange_button;
     QPushButton *order_list_button;
+    QSpacerItem *horizontalSpacer;
+    QSpacerItem *verticalSpacer_2;
+    QSpacerItem *verticalSpacer_3;
     QSpacerItem *horizontalSpacer_2;
 
     void setupUi(QWidget *public_menu)
@@ -60,18 +60,6 @@ public:
 ""));
         gridLayout_3 = new QGridLayout(public_menu);
         gridLayout_3->setObjectName("gridLayout_3");
-        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Fixed);
-
-        gridLayout_3->addItem(verticalSpacer_3, 2, 1, 1, 1);
-
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Fixed);
-
-        gridLayout_3->addItem(verticalSpacer_2, 0, 1, 1, 1);
-
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Minimum);
-
-        gridLayout_3->addItem(horizontalSpacer, 1, 0, 1, 1);
-
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName("horizontalLayout_3");
         gridLayout_2 = new QGridLayout();
@@ -147,6 +135,18 @@ public:
 
         gridLayout_3->addLayout(horizontalLayout_3, 1, 1, 1, 1);
 
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Minimum);
+
+        gridLayout_3->addItem(horizontalSpacer, 1, 0, 1, 1);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Fixed);
+
+        gridLayout_3->addItem(verticalSpacer_2, 0, 1, 1, 1);
+
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Fixed);
+
+        gridLayout_3->addItem(verticalSpacer_3, 2, 1, 1, 1);
+
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Minimum);
 
         gridLayout_3->addItem(horizontalSpacer_2, 1, 2, 1, 1);
@@ -159,7 +159,7 @@ public:
 
     void retranslateUi(QWidget *public_menu)
     {
-        public_menu->setWindowTitle(QCoreApplication::translate("public_menu", "public_menu", nullptr));
+        public_menu->setWindowTitle(QCoreApplication::translate("public_menu", "\351\240\220\347\264\204\346\216\222\347\217\255\347\263\273\347\265\261", nullptr));
         role_button->setText(QCoreApplication::translate("public_menu", "\350\247\222\350\211\262", nullptr));
         user_button->setText(QCoreApplication::translate("public_menu", "\345\276\214\345\217\260\344\272\272\345\223\241", nullptr));
         driver_car_button->setText(QCoreApplication::translate("public_menu", "\345\217\270\346\251\237 \350\273\212\350\274\233", nullptr));

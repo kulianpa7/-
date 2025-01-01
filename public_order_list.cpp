@@ -14,6 +14,8 @@
 #include <QMessageBox>
 #include <QComboBox>
 
+#include <logger.h>
+
 public_order_list::public_order_list(BasePage *parent)
     : BasePage(parent)
     , ui(new Ui::public_order_list)
@@ -21,7 +23,6 @@ public_order_list::public_order_list(BasePage *parent)
     ui->setupUi(this);
 
     connect(ui->refresh_button, &QPushButton::clicked, this, &public_order_list::loadDataFromDatabase);
-    connect(ui->add_button, &QPushButton::clicked, this, &public_order_list::addrow);
 
     ui->tableWidget->setColumnCount(9);  // 8 列
     // 設置表格標題
@@ -31,17 +32,6 @@ public_order_list::public_order_list(BasePage *parent)
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
     connect(ui->tableWidget, &QTableWidget::cellChanged, this, &public_order_list::onCellChanged);
-    // 初始化資料庫
-    db = QSqlDatabase::addDatabase("QPSQL"); // 使用 PostgreSQL 驅動
-    db.setHostName("localhost");            // 資料庫伺服器地址
-    db.setDatabaseName("healthy_pig");        // 資料庫名稱
-    db.setUserName("postgres");             // 使用者名稱
-    db.setPassword("password");             // 密碼
-
-    if (!db.open()) {
-        QMessageBox::critical(this, "資料庫錯誤", db.lastError().text());
-        return;
-    }
     // 從資料庫載入資料
     loadDataFromDatabase();
 }
@@ -83,7 +73,8 @@ void public_order_list::loadDataFromDatabase()
         "LEFT JOIN driver d ON o.driver_id = d.id "
         "LEFT JOIN car ON o.car_id = car.id "
         "LEFT JOIN driver_car_scheduling dcs ON o.driver_car_scheduling_id = dcs.id "
-        "LEFT JOIN order_status os ON o.order_status = os.id;"
+        "LEFT JOIN order_status os ON o.order_status = os.id "
+        "WHERE o.is_del = 0;"
         );
     // 查询角色数据并缓存，以便以后使用
     QSqlQuery roleQuery("SELECT id, \"status\" FROM order_status");
@@ -258,6 +249,11 @@ void public_order_list::deleteRow(int id) {
         if (deleteQuery.exec()) {
             qDebug() << "Row deleted successfully!";
         }
+        logger log_ins;
+        QString logMessage = QString("%1 刪除了一筆訂單，訂單編號: %2")
+                                 .arg(log_ins.return_username())
+                                 .arg(id);
+        log_ins.save_logger(logMessage);
         loadDataFromDatabase();
         qDebug() << "Row" << row << "deleted successfully!";
     } else {
@@ -329,110 +325,16 @@ void public_order_list::saveDataToDatabase(int row, int id)
     query.bindValue(":how_many", strs[2]);              // "how_many",
     query.bindValue(":position", strs[3]);              // "position"
     query.bindValue(":order_status", order_status_id);  // "order_status_id"
-
     // 执行查询
     if (query.exec()) {
         qDebug() << "User updated successfully!";
     } else {
         qDebug() << "Failed to update user:" << query.lastError();
     }
-
+    logger log_ins;
+    QString logMessage = QString("%1 修改了一筆訂單，訂單編號: %2 資料 passenger_name = phone = how_many = position = order_status_id = ")
+                             .arg(log_ins.return_username())
+                             .arg(id).arg(strs[0]).arg(strs[1]).arg(strs[2]).arg(strs[3]).arg(order_status_id);
+    log_ins.save_logger(logMessage);
     qDebug() << "Executing update query for User ID:" << id;
-}
-#include <QLabel>
-#include <QLineEdit>
-// addrow 函式實現
-void public_order_list::addrow() {
-    // 創建對話框
-    QDialog dialog(this);
-    dialog.setWindowTitle("新增單");
-
-    // 創建控件
-    QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
-    QHBoxLayout *label_text = new QHBoxLayout(&dialog);
-    // 名稱輸入框
-    QLabel *car_number_Label = new QLabel("車牌號碼:", &dialog);
-    QLineEdit *car_number_Edit = new QLineEdit(&dialog);
-    QLabel *can_passenger_Label = new QLabel("乘坐數量:", &dialog);
-    QLineEdit *can_passenger_Edit = new QLineEdit(&dialog);
-    // 設置垂直布局
-    label_text->addWidget(car_number_Label);
-    label_text->addWidget(car_number_Edit);
-    mainLayout->addLayout(label_text);
-    label_text = new QHBoxLayout(&dialog);
-
-    label_text->addWidget(can_passenger_Label);
-    label_text->addWidget(can_passenger_Edit);
-    mainLayout->addLayout(label_text);
-    label_text = new QHBoxLayout(&dialog);
-
-    // 角色選擇框
-    label_text = new QHBoxLayout(&dialog);
-    QLabel *roleLabel = new QLabel("角色:", &dialog);
-    QComboBox *roleComboBox = new QComboBox(&dialog);
-
-
-    roleComboBox->addItem("不能開",0); // 添加角色名稱，並將角色 ID 設為隱藏值
-    roleComboBox->addItem("能開",1); // 添加角色名稱，並將角色 ID 設為隱藏值
-
-    label_text->addWidget(roleLabel);
-    label_text->addWidget(roleComboBox);
-    mainLayout->addLayout(label_text);
-    // 設置對話框按鈕
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
-    mainLayout->addWidget(buttonBox);
-
-
-    // 連接按鈕信號
-    connect(buttonBox, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
-    connect(buttonBox, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
-
-    // 顯示對話框
-    if (dialog.exec() == QDialog::Accepted) {
-        // 獲取名稱
-        QString car_number = car_number_Edit->text();
-        QString can_passenger = can_passenger_Edit->text();
-        int selectedRoleId = roleComboBox->currentData().toInt();
-
-        if (!car_number.isEmpty() && !can_passenger.isEmpty()) {
-            // 首先檢查資料庫中是否已存在相同的用戶名
-            QSqlQuery checkQuery;
-            checkQuery.prepare("SELECT COUNT(*) FROM car WHERE car_number = :car_number AND is_del = 0");
-            checkQuery.bindValue(":car_number", car_number);
-
-            if (checkQuery.exec() && checkQuery.next()) {
-                int count = checkQuery.value(0).toInt();
-                if (count > 0) {
-                    QMessageBox::warning(this, "警告", "該車牌已存在，請使用其他車牌！");
-                    return; // 中止插入操作
-                }
-            } else {
-                qDebug() << "檢查用戶名失敗：" << checkQuery.lastError().text();
-                QMessageBox::critical(this, "錯誤", "無法檢查車牌是否已存在！");
-                return;
-            }
-
-            // 開始插入資料到資料庫
-            QSqlQuery query;
-            // 使用 SQL 插入語句
-            query.prepare("INSERT INTO car (car_number, can_passenger, car_situation_id,is_del) "
-                          "VALUES (:car_number, :can_passenger, :car_situation_id,0)");
-            // 設定綁定參數
-            query.bindValue(":car_number", car_number);
-            query.bindValue(":can_passenger", can_passenger);
-            query.bindValue(":car_situation_id", selectedRoleId);
-
-            // 執行查詢並檢查是否成功
-            if (query.exec()) {
-                // 重新加載資料庫資料並更新 UI
-                loadDataFromDatabase();
-            } else {
-                qDebug() << "新增人員失敗：" << query.lastError().text();
-                QMessageBox::warning(this, "錯誤", "無法新增人員至資料庫！");
-            }
-        } else {
-            // 如果名稱、帳號或密碼為空，顯示錯誤提示
-            QMessageBox::warning(this, "警告", "車牌或乘客量不能為空！");
-        }
-    }
 }

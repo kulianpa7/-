@@ -138,7 +138,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Healthy_pig", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "\351\240\220\347\264\204\346\216\222\347\217\255\347\263\273\347\265\261", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "\345\270\263\350\231\237", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "\345\257\206\347\242\274", nullptr));
         login->setText(QCoreApplication::translate("MainWindow", "\347\231\273\345\205\245", nullptr));

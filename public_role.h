@@ -29,8 +29,9 @@ private slots:
 
 private:
     Ui::public_role *ui;
-
-    QSqlDatabase db;  // 資料庫連接
+    QMenuBar *menuBar; // 菜單欄
+    QMenu *fileMenu;   // 文件菜單
+    // QSqlDatabase db;  // 資料庫連接
     void loadDataFromDatabase();  // 從資料庫載入資料到表格
     void saveDataToDatabase(int row,int id); // 將特定行儲存回資料庫
 };

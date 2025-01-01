@@ -112,7 +112,7 @@ public:
 
     void retranslateUi(QWidget *public_role)
     {
-        public_role->setWindowTitle(QCoreApplication::translate("public_role", "Form", nullptr));
+        public_role->setWindowTitle(QCoreApplication::translate("public_role", "\350\247\222\350\211\262\347\263\273\347\265\261", nullptr));
         refresh_button->setText(QCoreApplication::translate("public_role", "\351\207\215\346\226\260\346\225\264\347\220\206", nullptr));
         add_button->setText(QCoreApplication::translate("public_role", "\346\267\273\345\212\240", nullptr));
     } // retranslateUi

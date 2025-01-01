@@ -16,7 +16,13 @@
 #include <QSqlError>
 #include <QDebug>
 
+#include <QMenuBar>
+#include <QMenu>
+#include <QAction>
+
 #include <BasePage.h>
+
+#include <logger.h>
 
 std::unordered_map<int,bool> is_first_role;
 
@@ -25,6 +31,7 @@ public_role::public_role(BasePage *parent)
     , ui(new Ui::public_role)
 {
     ui->setupUi(this);
+    // 創建菜單欄
     // 連接 cellChanged 信號到槽函數
     connect(ui->tableWidget, &QTableWidget::cellChanged, this, &public_role::onCellChanged);
     // 連接 cellChanged 信號到槽函數
@@ -38,18 +45,17 @@ public_role::public_role(BasePage *parent)
     });
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
-    // 初始化資料庫
-    db = QSqlDatabase::addDatabase("QPSQL"); // 使用 PostgreSQL 驅動
-    db.setHostName("localhost");            // 資料庫伺服器地址
-    db.setDatabaseName("healthy_pig");        // 資料庫名稱
-    db.setUserName("postgres");             // 使用者名稱
-    db.setPassword("password");             // 密碼
-
-    if (!db.open()) {
-        QMessageBox::critical(this, "資料庫錯誤", db.lastError().text());
-        return;
-    }
-
+    QMenuBar* menuBar = new QMenuBar();
+    QMenu *fileMenu = new QMenu("操作");
+    menuBar->addMenu(fileMenu);
+    QAction *openAction = new QAction("輸出操作紀錄", this);
+    fileMenu->addAction(openAction);
+    this->layout()->setMenuBar(menuBar);
+    // 連接信號與槽
+    logger log_ins; // 保證 log_ins 的作用域存在
+    connect(openAction, &QAction::triggered, this, [&log_ins]() {
+        log_ins.print_logger_toCSV();
+    });
     // 從資料庫載入資料
     loadDataFromDatabase();
 }
@@ -90,6 +96,11 @@ void public_role::saveDataToDatabase(int row,int id)
     } else {
         qDebug() << "Failed to update row:" << query.lastError();
     }
+    logger log_ins;
+    QString logMessage = QString("%1 修改了一筆規則，規則編號: %2 資料: name=%3,role=%4,backendStaff=%5,driver=%6,driverSchedule=%7,orderArrangement=%8,orderList=%9")
+                             .arg(log_ins.return_username())
+                             .arg(id).arg(name).arg(role).arg(backendStaff).arg(driver).arg(driverSchedule).arg(orderArrangement).arg(orderList);
+    log_ins.save_logger(logMessage);
 }
 
 void public_role::loadDataFromDatabase()
@@ -260,7 +271,8 @@ void public_role::addrow() {
             QSqlQuery query;
             // 使用 SQL 插入語句
             query.prepare("INSERT INTO roles (name, role, backend_staff, driver, driver_schedule, order_arrangement, order_list) "
-                          "VALUES (:name, false, false, false, false, false, false)");
+                          "VALUES (:name, false, false, false, false, false, false)"
+                          "RETURNING id");
 
             // 設定綁定參數
             query.bindValue(":name", name);
@@ -275,6 +287,16 @@ void public_role::addrow() {
                 qDebug() << "新增角色失敗：" << query.lastError().text();
                 QMessageBox::warning(this, "錯誤", "無法新增角色至資料庫！");
             }
+            // 獲取返回的訂單 ID
+            int orderId = -1;
+            if (query.next()) {
+                orderId = query.value(0).toInt();
+            }
+            logger log_ins;
+            QString logMessage = QString("%1 新增了一筆規則，規則編號: %2")
+                                     .arg(log_ins.return_username())
+                                     .arg(orderId);
+            log_ins.save_logger(logMessage);
         } else {
             // 如果名稱為空，顯示錯誤提示
             QMessageBox::warning(this, "警告", "名稱不能為空！");
@@ -319,6 +341,11 @@ void public_role::deleteRow(int id) {
         if (deleteQuery.exec()) {
             qDebug() << "Row deleted successfully!";
         }
+        logger log_ins;
+        QString logMessage = QString("%1 刪除了一筆規則，規則編號: %2")
+                                 .arg(log_ins.return_username())
+                                 .arg(id);
+        log_ins.save_logger(logMessage);
         loadDataFromDatabase();
         qDebug() << "Row" << row << "deleted successfully!";
     } else {

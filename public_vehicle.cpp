@@ -13,6 +13,8 @@
 #include <QMessageBox>
 #include <QComboBox>
 
+#include <logger.h>
+
 public_velicle::public_velicle(BasePage *parent)
     : BasePage(parent)
     , ui(new Ui::public_velicle)
@@ -29,17 +31,6 @@ public_velicle::public_velicle(BasePage *parent)
     ui->tableWidget_3->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
     connect(ui->tableWidget_3, &QTableWidget::cellChanged, this, &public_velicle::onCellChanged);
-    // 初始化資料庫
-    db = QSqlDatabase::addDatabase("QPSQL"); // 使用 PostgreSQL 驅動
-    db.setHostName("localhost");            // 資料庫伺服器地址
-    db.setDatabaseName("healthy_pig");        // 資料庫名稱
-    db.setUserName("postgres");             // 使用者名稱
-    db.setPassword("password");             // 密碼
-
-    if (!db.open()) {
-        QMessageBox::critical(this, "資料庫錯誤", db.lastError().text());
-        return;
-    }
     // 從資料庫載入資料
     loadDataFromDatabase();
 }
@@ -255,6 +246,12 @@ void public_velicle::deleteRow(int id) {
         if (deleteQuery.exec()) {
             qDebug() << "Row deleted successfully!";
         }
+        logger log_ins;
+        QString logMessage = QString("%1 刪除了一台車輛，車輛編號: %2")
+                                 .arg(log_ins.return_username())
+                                 .arg(id);
+        log_ins.save_logger(logMessage);
+
         loadDataFromDatabase();
         qDebug() << "Row" << row << "deleted successfully!";
     } else {
@@ -343,7 +340,11 @@ void public_velicle::saveDataToDatabase(int row, int id)
     } else {
         qDebug() << "Failed to update user:" << query.lastError();
     }
-
+    logger log_ins;
+    QString logMessage = QString("%1 修改了車輛資料，車輛編號: %2 資料: car_number = %3 can_passenger = %4 car_situation_id = %5")
+                             .arg(log_ins.return_username())
+                             .arg(id).arg(car_number).arg(can_passenger).arg(car_situation_id);
+    log_ins.save_logger(logMessage);
     qDebug() << "Executing update query for User ID:" << id;
 }
 
@@ -353,7 +354,7 @@ void public_velicle::saveDataToDatabase(int row, int id)
 void public_velicle::addrow() {
     // 創建對話框
     QDialog dialog(this);
-    dialog.setWindowTitle("新增人員");
+    dialog.setWindowTitle("新增車輛");
 
     // 創建控件
     QVBoxLayout *mainLayout = new QVBoxLayout(&dialog);
@@ -438,6 +439,16 @@ void public_velicle::addrow() {
                 qDebug() << "新增人員失敗：" << query.lastError().text();
                 QMessageBox::warning(this, "錯誤", "無法新增人員至資料庫！");
             }
+            // 獲取返回的訂單 ID
+            int orderId = -1;
+            if (query.next()) {
+                orderId = query.value(0).toInt();
+            }
+            logger log_ins;
+            QString logMessage = QString("%1 新增了一台車輛，規則編號: %2 資料 car_number = %3 can_passenger = %4 car_situation_id = %5")
+                                     .arg(log_ins.return_username())
+                                     .arg(orderId).arg(car_number).arg(can_passenger).arg(selectedRoleId);
+            log_ins.save_logger(logMessage);
         } else {
             // 如果名稱、帳號或密碼為空，顯示錯誤提示
             QMessageBox::warning(this, "警告", "車牌或乘客量不能為空！");

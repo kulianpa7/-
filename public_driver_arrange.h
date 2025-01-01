@@ -19,7 +19,7 @@ protected:
     void closeEvent(QCloseEvent *event) override;  // 重載 closeEvent
 private:
     Ui::public_driver_arrange *ui;
-    QSqlDatabase db;  // 資料庫連接
+    // QSqlDatabase db;  // 資料庫連接
 private slots:
     void onDateChanged(const QDate &date);
     void combo_driver();

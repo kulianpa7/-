@@ -15,6 +15,8 @@
 #include <QSqlError>
 #include <QMessageBox>
 
+#include <logger.h>
+
 public_menu::public_menu(const QString &userName,QWidget *parent)
     : QWidget(parent)
     , m_userName(userName)// Initialize m_userName with userName
@@ -28,8 +30,8 @@ public_menu::public_menu(const QString &userName,QWidget *parent)
     buttons.append(ui->driver_scheduling_button);
     buttons.append(ui->order_arrange_button);
     buttons.append(ui->order_list_button);
-
-
+    logger log_instance;
+    qDebug() <<"E2:"<<log_instance.return_username();
     // 手動連接信號與槽
     connect(ui->role_button, &QPushButton::clicked, this, [this]() {on_buttons_click("role");});
     connect(ui->user_button, &QPushButton::clicked, this, [this]() {on_buttons_click("user");});

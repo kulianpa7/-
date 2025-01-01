@@ -24,7 +24,7 @@ private slots:
 
 private:
     Ui::public_order_list *ui;
-    QSqlDatabase db;  // 資料庫連接
+    // QSqlDatabase db;  // 資料庫連接
 
     void loadDataFromDatabase();
     void updateUserRole(int userId, int roleId);

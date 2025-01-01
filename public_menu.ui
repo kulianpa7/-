@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>public_menu</string>
+   <string>預約排班系統</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QPushButton {

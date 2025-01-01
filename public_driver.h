@@ -4,7 +4,6 @@
 #include <QWidget>
 #include "BasePage.h"
 #include <QSqlQuery>
-
 namespace Ui {
 class public_driver;
 }
@@ -19,7 +18,7 @@ protected:
     void closeEvent(QCloseEvent *event) override;  // 重載 closeEvent
 private:
     Ui::public_driver *ui;
-    QSqlDatabase db;  // 資料庫連接
+    // QSqlDatabase db;  // 資料庫連接
 private slots:
     void loadDataFromDatabase();
     void onCellChanged(int row);

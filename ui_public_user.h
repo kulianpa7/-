@@ -110,7 +110,7 @@ public:
 
     void retranslateUi(QWidget *public_user)
     {
-        public_user->setWindowTitle(QCoreApplication::translate("public_user", "Form", nullptr));
+        public_user->setWindowTitle(QCoreApplication::translate("public_user", "\345\276\214\345\217\260\344\272\272\345\223\241\347\263\273\347\265\261", nullptr));
         refresh_button_2->setText(QCoreApplication::translate("public_user", "\351\207\215\346\226\260\346\225\264\347\220\206", nullptr));
         add_button_2->setText(QCoreApplication::translate("public_user", "\346\267\273\345\212\240", nullptr));
     } // retranslateUi

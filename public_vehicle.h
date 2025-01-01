@@ -22,7 +22,7 @@ private slots:
     void deleteRow(int id);
 
 private:
-    QSqlDatabase db;  // 資料庫連接
+    // QSqlDatabase db;  // 資料庫連接
 
     void loadDataFromDatabase();
     void updateUserRole(int userId, int roleId);

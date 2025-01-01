@@ -13,6 +13,8 @@
 #include <QMessageBox>
 #include <QComboBox>
 
+#include <logger.h>
+
 public_driver::public_driver(BasePage *parent)
     : BasePage(parent)
     , ui(new Ui::public_driver)
@@ -29,18 +31,6 @@ public_driver::public_driver(BasePage *parent)
     ui->tableWidget_2->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
     connect(ui->tableWidget_2, &QTableWidget::cellChanged, this, &public_driver::onCellChanged);
-    // 初始化資料庫
-    db = QSqlDatabase::addDatabase("QPSQL"); // 使用 PostgreSQL 驅動
-    db.setHostName("localhost");            // 資料庫伺服器地址
-    db.setDatabaseName("healthy_pig");        // 資料庫名稱
-    db.setUserName("postgres");             // 使用者名稱
-    db.setPassword("password");             // 密碼
-
-    if (!db.open()) {
-        QMessageBox::critical(this, "資料庫錯誤", db.lastError().text());
-        return;
-    }
-    // 從資料庫載入資料
     loadDataFromDatabase();
 }
 void public_driver::closeEvent(QCloseEvent *event)
@@ -237,6 +227,11 @@ void public_driver::deleteRow(int id) {
         if (deleteQuery.exec()) {
             qDebug() << "Row deleted successfully!";
         }
+        logger log_ins;
+        QString logMessage = QString("%1 刪除了一個司機的資料，司機編號: %2")
+                                 .arg(log_ins.return_username())
+                                 .arg(id);
+        log_ins.save_logger(logMessage);
         loadDataFromDatabase();
         qDebug() << "Row" << row << "deleted successfully!";
     } else {
@@ -342,7 +337,11 @@ void public_driver::saveDataToDatabase(int row, int id)
     } else {
         qDebug() << "Failed to update user:" << query.lastError();
     }
-
+    logger log_ins;
+    QString logMessage = QString("%1 修改了一個司機的資料，司機編號: %2 資料: name = %3,username = %4,phone = %5")
+                             .arg(log_ins.return_username())
+                             .arg(id).arg(users).arg(username).arg(phone);
+    log_ins.save_logger(logMessage);
     qDebug() << "Executing update query for User ID:" << id;
 }
 
@@ -426,7 +425,8 @@ void public_driver::addrow() {
             QSqlQuery query;
             // 使用 SQL 插入語句
             query.prepare("INSERT INTO driver (name, phone, username, password) "
-                          "VALUES (:users, :phone, :username, :password)");
+                          "VALUES (:users, :phone, :username, :password)"
+                          "RETURNING id");
             // 設定綁定參數
             query.bindValue(":users", name);
             query.bindValue(":username", username);
@@ -443,6 +443,16 @@ void public_driver::addrow() {
                 qDebug() << "新增人員失敗：" << query.lastError().text();
                 QMessageBox::warning(this, "錯誤", "無法新增人員至資料庫！");
             }
+            int orderId = -1;
+            if (query.next()) {
+                orderId = query.value(0).toInt();
+            }
+            logger log_ins;
+            QString logMessage = QString("%1 新增了一個司機的資料，司機編號: %2 資料: name = %3,username = %4,phone = %5")
+                                     .arg(log_ins.return_username())
+                                     .arg(orderId).arg(name).arg(username).arg(phone);
+            log_ins.save_logger(logMessage);
+
         } else {
             // 如果名稱、帳號或密碼為空，顯示錯誤提示
             QMessageBox::warning(this, "警告", "名稱或帳號密碼不能為空！");

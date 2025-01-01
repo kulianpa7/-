@@ -4,28 +4,21 @@
 #include "QMessageBox"
 #include "QSqlError"
 #include <functional>
+
+#include <logger.h>
+
 public_driver_arrange::public_driver_arrange(BasePage *parent)
     : BasePage(parent)
     , ui(new Ui::public_driver_arrange)
 {
     ui->setupUi(this);
     // 連接 QDateEdit 的 dateChanged 信號到 onDateChanged 槽
-
+    // 設定為目前的日期和時間
+    ui->dateEdit->setDateTime(QDateTime::currentDateTime());
     connect(ui->dateEdit, &QDateEdit::dateChanged, this, &public_driver_arrange::onDateChanged);
     connect(ui->comboBox_driver,&QComboBox::currentTextChanged,this,&public_driver_arrange::on_driver_changed);
     connect(ui->save_button ,&QPushButton::clicked,this,&public_driver_arrange::save);
     connect(ui->clear_button,&QPushButton::clicked,this,&public_driver_arrange::clear_check);
-    // 初始化資料庫
-    db = QSqlDatabase::addDatabase("QPSQL"); // 使用 PostgreSQL 驅動
-    db.setHostName("localhost");            // 資料庫伺服器地址
-    db.setDatabaseName("healthy_pig");        // 資料庫名稱
-    db.setUserName("postgres");             // 使用者名稱
-    db.setPassword("password");             // 密碼
-
-    if (!db.open()) {
-        QMessageBox::critical(this, "資料庫錯誤", db.lastError().text());
-        return;
-    }
     QVector<QVector<int>> vec={{},{},{},{},{},{},{}};
     for(int i = 0;i<7;i++){
         for(int j = 0;j<6;j++){
@@ -201,14 +194,6 @@ void public_driver_arrange::on_driver_changed() {
 
     // 清空所有复选框状态
     for (int row = 1; row <= 42; ++row) {  // 遍历所有 42 行
-        QString line_editName = QString("lineEdits_%1").arg(row);
-        // 查找對應的 QLineEdit
-        QLineEdit* lineEdit = this->findChild<QLineEdit*>(line_editName);
-        if (lineEdit) {
-            lineEdit->clear(); // 清空內容
-        } else {
-            qDebug() << "QLineEdit not found with object name:" << line_editName;
-        }
         for (int col = 1; col <= 3; ++col) {  // 遍历 3 列
             QString checkBoxName = QString("checkBoxs_%1_%2").arg(row).arg(col);
             QCheckBox* checkBox = findChild<QCheckBox*>(checkBoxName);
@@ -413,7 +398,11 @@ void public_driver_arrange::save(){
             }
         }
     }
-
+    logger log_ins;
+    QString logMessage = QString("%1 修改了單月的排班資料，月份:%2 司機編號: %3")
+                             .arg(log_ins.return_username())
+                             .arg(selectedDate.toString()).arg(driverid);
+    log_ins.save_logger(logMessage);
     onDateChanged(ui->dateEdit->date());
 
 }
@@ -481,6 +470,14 @@ void public_driver_arrange::onDateChanged(const QDate &date)
 
     // 設定 frames 的背景顏色並填充日期
     for (int i = 1; i <= 42; ++i) {
+        QString line_editName = QString("lineEdits_%1").arg(i);
+        // 查找對應的 QLineEdit
+        QLineEdit* lineEdit = this->findChild<QLineEdit*>(line_editName);
+        if (lineEdit) {
+            lineEdit->clear(); // 清空內容
+        } else {
+            qDebug() << "QLineEdit not found with object name:" << line_editName;
+        }
         // 檢查 frame 是否顯示在該月份的範圍內
         if (i >= first_day && i < first_day + daysInMonth) {
             int day = i - first_day + 1;

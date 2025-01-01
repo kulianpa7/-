@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>訂單查看系統</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QPushButton {
@@ -62,13 +62,6 @@ QPushButton:hover {
              </property>
              <property name="text">
               <string>重新整理</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="add_button">
-             <property name="text">
-              <string>添加</string>
              </property>
             </widget>
            </item>

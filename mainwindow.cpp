@@ -8,6 +8,9 @@
 #include <QByteArray>
 
 #include <QSqlError>
+
+#include <logger.h>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -79,12 +82,25 @@ void MainWindow::on_loginBt_clicked()
     QString userName = ui->username->text();
     QString password = ui->password->text();
     bool auth = authenticateUser(userName,password);
+    // 創建 logger 類的實例
+    logger log_instance;
+
     if(auth || (userName == "USERNAME" && password == "PASSWORD"))
     {
         this->close();
+        QString log = "%1 登入系統成功";
+        log = log.arg(userName);
+        log_instance.save_logger(log);
+        log_instance.save_username(userName);
+        qDebug() <<"E1:"<<log_instance.return_username();
+
+
         public_menu *menu_main = new public_menu(userName);
         menu_main->show();
     }else{
-         QMessageBox::warning(this, "登入失敗", "請確認帳號密碼是否輸入正確");
+        QString log = "%1 登入系統失敗";
+        log = log.arg(userName);
+        log_instance.save_logger(log);
+        QMessageBox::warning(this, "登入失敗", "請確認帳號密碼是否輸入正確");
     }
 }

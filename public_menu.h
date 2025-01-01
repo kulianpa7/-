@@ -7,7 +7,7 @@
 #include <QResizeEvent>
 #include <QVector>
 #include <QPointer> // 引入 QPointer
-
+#include <QSqlQuery>
 namespace Ui {
 class public_menu;
 }
@@ -24,6 +24,7 @@ private slots:
     void on_buttons_click(const QString& buttonType);
     ButtonType stringToButtonType(const QString& buttonType);
 private:
+    // QSqlDatabase db;  // 資料庫連接
     QString m_userName;  // Store the username
     std::unordered_map<int, bool> isOpens = {
         {Role, false},
