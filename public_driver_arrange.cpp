@@ -14,7 +14,7 @@ public_driver_arrange::public_driver_arrange(BasePage *parent)
     ui->setupUi(this);
     // 連接 QDateEdit 的 dateChanged 信號到 onDateChanged 槽
     // 設定為目前的日期和時間
-    ui->dateEdit->setDateTime(QDateTime::currentDateTime());
+    ui->dateEdit->setDate(QDate(QDate::currentDate().year(), QDate::currentDate().month(), 1));
     connect(ui->dateEdit, &QDateEdit::dateChanged, this, &public_driver_arrange::onDateChanged);
     connect(ui->comboBox_driver,&QComboBox::currentTextChanged,this,&public_driver_arrange::on_driver_changed);
     connect(ui->save_button ,&QPushButton::clicked,this,&public_driver_arrange::save);
