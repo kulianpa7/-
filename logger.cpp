@@ -80,6 +80,5 @@ void logger::save_username(QString usernames) {
     username = usernames;  // 設置靜態變數 username
 }
 QString logger::return_username(){
-    qDebug() << username << " <" ;
     return username;
 }

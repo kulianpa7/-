@@ -91,7 +91,7 @@ void order_arrange::change_driver() {
         int carId = query.value("car_id").toInt();
         int driverId = query.value("driver_id").toInt();
         // 將資料以 key-value 形式存入 comboBox
-        QString displayText = QString("%1 (Driver: %2)").arg(driverName).arg(driverId);
+        QString displayText = QString("%1 (Driver_id: %2)").arg(driverName).arg(driverId);
         QString dataValue = QString("%1,%2,%3").arg(dcsId).arg(carId).arg(driverId);
         ui->comboBox->addItem(displayText, dataValue);
     }
@@ -113,8 +113,8 @@ void order_arrange::save() {
     }
 
     int driverCarSchedulingId = comboData[0].toInt(); // dcs_id
-    int driverId = comboData[1].toInt();             // driver_id
-    int carId = comboData[2].toInt();                // car_id
+    int driverId = comboData[2].toInt();             // driver_id
+    int carId = comboData[1].toInt();                // car_id
 
     // 插入資料到 orders 資料表
     QSqlQuery query;
