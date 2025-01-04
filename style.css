@@ -1,0 +1,80 @@
+/* 今日頁面的按鈕樣式 */
+        #page-today QPushButton#todaystart {
+            background-color: #3498db; /* 藍色背景 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 24px;
+            width: 100px;
+            height: 50px;
+        }
+
+        #page-today QPushButton#todaystart:hover {
+            background-color: #2980b9; /* 懸停時顏色 */
+        }
+
+        #page-today QPushButton#todayend {
+            background-color: #e74c3c; /* 紅色背景 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 24px;
+            width: 100px;
+            height: 50px;
+        }
+
+        #page-today QPushButton#todayend:hover {
+            background-color: #c0392b;
+        }
+
+        #page-today QPushButton#todaydiscard {
+            background-color: #f39c12; /* 黃色背景 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 24px;
+            width: 100px;
+            height: 50px;
+        }
+
+        #page-today QPushButton#todaydiscard:hover {
+            background-color: #e67e22;
+        }
+
+        /* 歷史頁面的按鈕樣式 */
+        #page-history QPushButton#historyend {
+            background-color: #c0392b; /* 紅色背景 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 24px;
+            width: 100px;
+            height: 50px;
+            pointer-events: none; /* 禁用點擊事件 */
+            opacity: 0.5; /* 設置透明度，顯示按鈕不可用 */
+        }
+
+        #page-history QPushButton#historyend:hover {
+            background-color: #c0392b; /* 禁用時，背景不變 */
+        }
+
+        #page-history QPushButton#historydiscard {
+            background-color: #e67e22; /* 黃色背景 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 24px;
+            width: 100px;
+            height: 50px;
+            pointer-events: none; /* 禁用點擊事件 */
+            opacity: 0.5; /* 設置透明度，顯示按鈕不可用 */
+        }
+
+        #page-history QPushButton#historydiscard:hover {
+            background-color: #e67e22; /* 禁用時，背景不變 */
+        }

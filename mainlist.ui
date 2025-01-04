@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainList</class>
+ <widget class="QMainWindow" name="MainList">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>920</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="2">
+       <widget class="QLabel" name="a_3TimeLabel">
+        <property name="text">
+         <string>YY/MM/DD HH:MM:SS</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="a_4LogOut">
+        <property name="text">
+         <string>LogOut</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="a_1NameLabel">
+        <property name="text">
+         <string>使用者</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="a_2CarLabel">
+        <property name="text">
+         <string>AAA-1111</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" colspan="2">
+       <widget class="QPushButton" name="b_2History">
+        <property name="text">
+         <string>History</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="4">
+       <widget class="QScrollArea" name="c_List">
+        <property name="styleSheet">
+         <string notr="true">/* 今日頁面的按鈕樣式 */
+#todaystart {
+    background-color: #3498db; /* 藍色背景 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 24px;
+    width: 100px;
+    height: 50px;
+}
+
+#todaystart:hover {
+    background-color: #2980b9; /* 懸停時顏色 */
+}
+
+#todaystarting {
+    background-color: #2980b9; /* 藍色背景 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 24px;
+    width: 100px;
+    height: 50px;
+}
+
+#todaystarting:hover {
+    background-color: #2980b9; /* 懸停時顏色 */
+}
+
+#todayend {
+    background-color: #e74c3c; /* 紅色背景 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 24px;
+    width: 100px;
+    height: 50px;
+}
+
+#todayend:hover {
+    background-color: #c0392b;
+}
+
+#todaydiscard {
+    background-color: #f39c12; /* 黃色背景 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 24px;
+    width: 100px;
+    height: 50px;
+}
+
+#todaydiscard:hover {
+    background-color: #e67e22;
+}
+
+/* 歷史頁面的按鈕樣式 */
+#historyend {
+    background-color: #c0392b; /* 紅色背景 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 24px;
+    width: 100px;
+    height: 50px;
+    opacity: 0.5; /* 設置透明度，顯示按鈕不可用 */
+}
+
+#historyend:hover {
+    background-color: #c0392b; /* 禁用時，背景不變 */
+}
+
+#historydiscard {
+    background-color: #e67e22; /* 黃色背景 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 24px;
+    width: 100px;
+    height: 50px;
+    opacity: 0.5; /* 設置透明度，顯示按鈕不可用 */
+}
+
+#historydiscard:hover {
+    background-color: #e67e22; /* 禁用時，背景不變 */
+}
+</string>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>894</width>
+           <height>576</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QPushButton" name="b_1Today">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Today</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>920</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
