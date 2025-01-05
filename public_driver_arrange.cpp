@@ -413,7 +413,7 @@ void public_driver_arrange::combo_car() {
 
     // 查询数据库以获取未删除的司机
     QSqlQuery query;
-    query.prepare("SELECT id, car_number as name FROM car WHERE is_del = 0");
+    query.prepare("SELECT id, car_number as name FROM car WHERE is_del = 0 AND car_situation_id = 1");
 
     // 执行查询并检查是否成功
     if (!query.exec()) {

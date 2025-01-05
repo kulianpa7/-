@@ -69,6 +69,7 @@ void order_arrange::change_driver() {
             ON te.id = dcs.time_id
         WHERE
             car.can_passenger >= :can_passenger AND
+            car.car_situation_id = 1 AND
             te.start_time <= :start_time AND
             te.end_time >= :end_time AND
             dcs.date = :date;
