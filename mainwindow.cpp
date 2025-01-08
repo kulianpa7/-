@@ -28,11 +28,12 @@ MainWindow::~MainWindow()
 }
 bool authenticateUser(const QString& username, const QString& password, int& driver_id) {
     // 建立資料庫連接
-    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");   // 使用 PostgreSQL 驅動
-    db.setHostName("dingdingstudio.serveminecraft.net");                            // 資料庫伺服器地址
-    db.setDatabaseName("healthy_pig");                         // 資料庫名稱
-    db.setUserName("postgres");                             // 使用者名稱
-    db.setPassword("healthybear");                             // 密碼
+    QSqlDatabase db =
+        QSqlDatabase::addDatabase("QPSQL");                         // 使用 PostgreSQL 驅動
+    db.setHostName("ip");            // 資料庫伺服器地址
+    db.setDatabaseName("DatabaseName");                              // 資料庫名稱
+    db.setUserName("UserName");                                     // 使用者名稱
+    db.setPassword("Password");                                  // 密碼
 
     if (!db.open()) {
         qDebug() << "Failed to connect to database:" << db.lastError().text();
